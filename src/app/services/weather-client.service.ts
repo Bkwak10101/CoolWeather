@@ -6,50 +6,62 @@ import {map, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class WeatherClientService {
+
+  private url: any;
+  private data: any;
+
   constructor(private httpClient: HttpClient) {
+    this.url = "https://api.open-meteo.com/v1/forecast?latitude=50.06&longitude=19.94&hourly=temperature_2m";
+    this.data = this.httpClient.get(this.url);
   }
 
-  public getForecast(base: string): Observable<Root> {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=50.06&longitude=19.94&hourly=temperature_2m`
-    return this.httpClient.get<Root>(url);
+  getData() {
+    return this.httpClient.get(this.url);
   }
 
-  // public getCurrentWeather() Observable<number> {
-  //   const url = `https://api.exchangeratesapi.io/latest?base=${baseCurrency}`;
-  //   return this.httpClient.get(url).pipe(
-  //     map((response: any) => response.rates[targetCurrency])
-  //   );
-  // }
+  getCurrentData(dates: Date[], data: any[]) {
+    const currentTime = new Date().getHours();
+    let index = 0;
+    for (const date in dates) {
+      if (date == currentTime.toString()) {
+        return data[index];
+      }
+      index++;
+    }
+    return data[index];
+  }
+
+  getTomorrowData(dates: Date[], data: any[]) {
+    const dayAfterTommorow = new Date().getHours() + 24;
+    let index = 0;
+
+    for (const date in dates) {
+      if (date == dayAfterTommorow.toString()) {
+
+        return data[index];
+      }
+      index++;
+    }
+    return data[index];
+
+  }
+
+  getDayAfterTomorrowData(dates: Date[], data: any[]) {
+    const tomorrowTime = new Date().getHours() + 48;
+    let index = 0;
+
+    for (const date in dates) {
+      if (date == tomorrowTime.toString()) {
+
+        return data[index];
+      }
+      index++;
+    }
+    return data[index];
+  }
 }
 
-export interface Units {
-  time: string
-  temperature_2m: string
+export interface ApiResponse {
+  time: string[];
+  temperature_2m: number[];
 }
-
-export interface Forecast {
-  time: Time
-  temperature_2m: Temperature
-}
-
-export interface Time {
-
-}
-
-export interface Temperature {
-  temperature_2m: number
-}
-
-export interface Root {
-
-  latitude: string
-  longitude: string
-  generationtime_ms: string
-  utc_offset_seconds: number
-  timezone: string
-  timezone_abbrevation: string
-  elevation: number
-  hourly_units: Units
-  hourly: Forecast
-}
-
