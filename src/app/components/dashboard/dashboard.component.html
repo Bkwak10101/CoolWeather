@@ -1,4 +1,12 @@
 <h1>Weather forecast in Cracow!</h1>
+
+<h1>Current weather</h1>
+<div *ngFor="let weather of weatherMappings">
+  <img *ngIf="weather.range.includes(forecast['currentWeather'])" [src]="weather.imagePath"/>
+</div>
+<p>{{forecast['currentWeather']}}</p>
+<h2>{{forecast['temperature']}}°C</h2>
+
 <mat-tab-group>
   <mat-tab label="Today">
     <h2>Temperature: {{forecast['temperature']}}°C</h2>
