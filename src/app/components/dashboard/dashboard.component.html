@@ -1,20 +1,19 @@
 <h1>Weather forecast in Cracow!</h1>
-
-<h1>Current weather</h1>
-<div *ngFor="let weather of weatherMappings">
-  <img *ngIf="weather.range.includes(forecast['currentWeather'])" [src]="weather.imagePath"/>
-</div>
-<p>{{forecast['currentWeather']}}</p>
-<h2>{{forecast['temperature']}}°C</h2>
-
 <mat-tab-group>
   <mat-tab label="Today">
     <h2>Temperature: {{forecast['temperature']}}°C</h2>
+    <img [src]="forecast['currentWeather'] ? getWeatherImage(forecast['currentWeather']) : ''" alt="Weather Icon"/>
+<!--    <h2>{{forecast['currentWeather']}}</h2>-->
   </mat-tab>
   <mat-tab label="Tomorrow">
     <h2>Temperature: {{forecast['temperatureTomorrow']}}°C</h2>
+    <img [src]="forecast['tomorrowWeather'] ? getWeatherImage(forecast['tomorrowWeather']) : ''" alt="Weather Icon"/>
+<!--    <h2>{{forecast['tomorrowWeather']}}</h2>-->
   </mat-tab>
   <mat-tab label="The day after tomorrow">
     <h2>Temperature: {{forecast['temperatureAfterTomorrow']}}°C</h2>
+    <img [src]="forecast['afterTomorrowWeather'] ? getWeatherImage(forecast['afterTomorrowWeather']) : ''"
+         alt="Weather Icon"/>
+<!--    <h2>{{forecast['afterTomorrowWeather']}}</h2>-->
   </mat-tab>
 </mat-tab-group>
