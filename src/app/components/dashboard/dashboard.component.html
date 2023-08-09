@@ -1,19 +1,18 @@
-<h1>Weather forecast in Cracow!</h1>
 <mat-tab-group>
   <mat-tab label="Today">
-    <h2>Temperature: {{forecast['temperature']}}°C</h2>
+    <h2>Today's weather in Cracow</h2>
     <img [src]="forecast['currentWeather'] ? getWeatherImage(forecast['currentWeather']) : ''" alt="Weather Icon"/>
-<!--    <h2>{{forecast['currentWeather']}}</h2>-->
+    <h1>{{forecast['temperature']}}°C</h1>
   </mat-tab>
   <mat-tab label="Tomorrow">
-    <h2>Temperature: {{forecast['temperatureTomorrow']}}°C</h2>
+    <h2>Tomorow's weather in Cracow</h2>
     <img [src]="forecast['tomorrowWeather'] ? getWeatherImage(forecast['tomorrowWeather']) : ''" alt="Weather Icon"/>
-<!--    <h2>{{forecast['tomorrowWeather']}}</h2>-->
+    <h1>{{forecast['temperatureTomorrow']}}°C</h1>
   </mat-tab>
   <mat-tab label="The day after tomorrow">
-    <h2>Temperature: {{forecast['temperatureAfterTomorrow']}}°C</h2>
+    <h2>The day after tomorrow's weather in Cracow</h2>
     <img [src]="forecast['afterTomorrowWeather'] ? getWeatherImage(forecast['afterTomorrowWeather']) : ''"
          alt="Weather Icon"/>
-<!--    <h2>{{forecast['afterTomorrowWeather']}}</h2>-->
+    <h1>{{forecast['temperatureAfterTomorrow']}}°C</h1>
   </mat-tab>
 </mat-tab-group>
