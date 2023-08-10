@@ -2,17 +2,17 @@
   <mat-tab label="Today">
     <h2>Today's weather in Cracow</h2>
     <img [src]="forecast['currentWeather'] ? getWeatherImage(forecast['currentWeather']) : ''" alt="Weather Icon"/>
-    <h1>{{forecast['temperature']}}°C</h1>
+    <p>{{forecast['temperature']}}°C</p>
   </mat-tab>
   <mat-tab label="Tomorrow">
     <h2>Tomorow's weather in Cracow</h2>
     <img [src]="forecast['tomorrowWeather'] ? getWeatherImage(forecast['tomorrowWeather']) : ''" alt="Weather Icon"/>
-    <h1>{{forecast['temperatureTomorrow']}}°C</h1>
+    <p>{{forecast['temperatureTomorrow']}}°C</p>
   </mat-tab>
   <mat-tab label="The day after tomorrow">
     <h2>The day after tomorrow's weather in Cracow</h2>
     <img [src]="forecast['afterTomorrowWeather'] ? getWeatherImage(forecast['afterTomorrowWeather']) : ''"
          alt="Weather Icon"/>
-    <h1>{{forecast['temperatureAfterTomorrow']}}°C</h1>
+    <p>{{forecast['temperatureAfterTomorrow']}}°C</p>
   </mat-tab>
 </mat-tab-group>
