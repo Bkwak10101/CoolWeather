@@ -1,8 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="container">
   <mat-card class="card">
-    <mat-card-header>
-      <mat-card-title>Select a specific date...</mat-card-title>
-    </mat-card-header>
+<!--    <h2>Today's weather in Cracow</h2>-->
+<!--    <img [src]="forecast['currentWeather'] ? getWeatherImage(forecast['currentWeather']) : ''" alt="Weather Icon"/>-->
+<!--    <p>{{forecast['temperature']}}°C</p>-->
+    <div class="title">Select a specific date...</div>
     <mat-card-content>
       <form [formGroup]="form">
         <mat-form-field>
@@ -13,6 +14,7 @@
         <mat-form-field>
           <input matInput type="time" placeholder="Choose a time" formControlName="time">
         </mat-form-field>
+        <button mat-raised-button color="primary">Show Weather</button>
       </form>
     </mat-card-content>
   </mat-card>

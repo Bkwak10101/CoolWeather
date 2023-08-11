@@ -13,11 +13,8 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 2);
 }
 
-.mat-card-header {
-  justify-content: center;
-}
-
-.mat-form-field {
-  width: 100%;
-  margin-bottom: 20px;
+.title {
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 50px;
 }

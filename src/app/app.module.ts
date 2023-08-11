@@ -19,12 +19,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from "@angular/material/card";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {WeatherMappingService} from "./services/weather-mapping.service";
 @NgModule({
   declarations: [
     AppComponent,
     HourlyComponent,
-    DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardComponent
   ],
   imports: [
     MatToolbarModule,
@@ -43,7 +44,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [WeatherMappingService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {WeatherClientService} from "../../services/weather-client.service";
+import {WeatherMappingService} from "../../services/weather-mapping.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +15,10 @@ export class DashboardComponent implements OnInit {
     afterTomorrowWeather: null
   };
 
-
-  weatherMappings: { range: number[]; imagePath: string }[] = [];
-
-  constructor(private weatherClientService: WeatherClientService) {
+  constructor(
+    private weatherClientService: WeatherClientService,
+    @Inject(WeatherMappingService) private weatherMappingService: WeatherMappingService
+  ) {
   }
 
   ngOnInit(): void {
@@ -37,24 +38,10 @@ export class DashboardComponent implements OnInit {
         this.forecast['currentWeather'] = this.weatherClientService.getCurrentWeatherCode(daily, code)
         this.forecast['tomorrowWeather'] = this.weatherClientService.getWeatherForDay(daily, code, 1);
         this.forecast['afterTomorrowWeather'] = this.weatherClientService.getWeatherForDay(daily, code, 2);
-
-        this.setupWeatherMappings();
-
       });
   }
-  private setupWeatherMappings(): void {
-    this.weatherMappings = [
-      { range: [0], imagePath: 'assets/images/sun.png' },
-      { range: [1, 2, 3], imagePath: 'assets/images/clear-sky.png' },
-      { range: Array.from({ length: 60 }, (_, i) => i + 4), imagePath: 'assets/images/rain.png' },
-      { range: Array.from({ length: 7 }, (_, i) => i + 64), imagePath: 'assets/images/cloudy.png' },
-      { range: Array.from({ length: 14 }, (_, i) => i + 71), imagePath: 'assets/images/cloudy.png' },
-      { range: Array.from({ length: 2 }, (_, i) => i + 85), imagePath: 'assets/images/snow.png' },
-      { range: Array.from({ length: 13 }, (_, i) => i + 87), imagePath: 'assets/images/storm.png' },
-    ];
-  }
+
   getWeatherImage(weatherCode: any): string {
-    const weatherMapping = this.weatherMappings.find(mapping => mapping.range.includes(weatherCode));
-    return weatherMapping ? weatherMapping.imagePath : '';
+    return this.weatherMappingService.getWeatherImage(weatherCode);
   }
 }

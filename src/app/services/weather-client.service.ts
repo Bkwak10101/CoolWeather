@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
+import { WeatherMappingService } from './weather-mapping.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherClientService {
-
   private url: any;
   private data: any;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private weatherMappingService: WeatherMappingService) {
     this.url = "https://api.open-meteo.com/v1/forecast?latitude=50.06&longitude=19.94&hourly=temperature_2m&daily=weathercode&timezone=auto";
     this.data = this.httpClient.get(this.url);
   }
