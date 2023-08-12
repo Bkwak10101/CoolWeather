@@ -5,7 +5,7 @@
     <p>{{forecast['temperature']}}°C</p>
   </mat-tab>
   <mat-tab label="Tomorrow">
-    <h2>Tomorow's weather in Cracow</h2>
+    <h2>Tomorrow's weather in Cracow</h2>
     <img [src]="forecast['tomorrowWeather'] ? getWeatherImage(forecast['tomorrowWeather']) : ''" alt="Weather Icon"/>
     <p>{{forecast['temperatureTomorrow']}}°C</p>
   </mat-tab>

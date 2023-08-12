@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import { WeatherMappingService } from './weather-mapping.service';
+import {WeatherMappingService} from './weather-mapping.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,6 @@ export class WeatherClientService {
   getCurrentData(dates: Date[], data: any[]) {
     const currentTime = new Date().getHours();
     let index = 0;
-
-    console.log(data)
 
     for (const date in dates) {
       if (date == currentTime.toString()) {
@@ -60,24 +58,8 @@ export class WeatherClientService {
     }
     return data[index];
   }
-
-  getCurrentWeatherCode(dates: string[], code: any[]) {
-    const currentDay = new Date().getDate();
-    const formattedDate = this.formatDate(dates[0]);
-    let index = 0;
-
-    for (const date in dates) {
-      const formattedDate = this.formatDate(dates[date]);
-      if (formattedDate == currentDay) {
-        return code[index];
-      }
-      index++;
-    }
-
-    return code;
-  }
-
-  getWeatherForDay(dates: string[], code: any[], dayOffset: number) {
+  
+  getDailyWeather(dates: string[], code: any[], dayOffset: number) {
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + dayOffset);
     const targetDate = currentDate.getDate();
