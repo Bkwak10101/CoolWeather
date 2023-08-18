@@ -19,6 +19,24 @@ export class WeatherClientService {
     return this.httpClient.get(this.url);
   }
 
+  getSpecificData(dates: Date[], data: any[], selectedDay: any, selectedTime: number) {
+    let index = 0;
+    let day;
+    if (selectedDay.getDate() > new Date().getDate()) {
+      day = new Date().getHours() + 24 * (selectedDay.getDate() - new Date().getDate());
+    } else {
+      day = new Date().getHours() + 24 * (new Date().getDate() - selectedDay.getDate());
+    }
+    console.log("Day value:" + day.toString())
+    for (const date in dates) {
+      if (date == day.toString()) {
+        return data[index];
+      }
+      index++;
+    }
+    return data[index];
+  }
+
   getCurrentData(dates: Date[], data: any[]) {
     const currentTime = new Date().getHours();
     let index = 0;
@@ -58,7 +76,22 @@ export class WeatherClientService {
     }
     return data[index];
   }
-  
+
+  getSpecificWeather(dates: string[], code: any[], selectedDay: any) {
+    const specificDate = selectedDay.getDate();
+    let index = 0;
+    for (const date in dates) {
+      const formattedDate = this.formatDate(dates[date]);
+      if (formattedDate === specificDate) {
+        console.log("WTF", code[index])
+        return code[index];
+      }
+      index++;
+    }
+    return code;
+  }
+
+
   getDailyWeather(dates: string[], code: any[], dayOffset: number) {
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + dayOffset);
