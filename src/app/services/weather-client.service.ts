@@ -79,18 +79,46 @@ export class WeatherClientService {
 
   getSpecificWeather(dates: string[], code: any[], selectedDay: any) {
     const specificDate = selectedDay.getDate();
+
     let index = 0;
     for (const date in dates) {
       const formattedDate = this.formatDate(dates[date]);
       if (formattedDate === specificDate) {
-        console.log("WTF", code[index])
-        return code[index];
+        console.log("CODE", code)
+        console.log("INDEX", index)
+        switch (index) {
+          case 24:
+            return code[index - 24];
+          case 48:
+            return code[index - 48];
+          case 72:
+            return code[index - 72];
+          case 96:
+            return code[index - 96];
+          case 120:
+            return code[index - 120];
+          case 144:
+            return code[index - 144];
+          case 168:
+            return code[index - 168];
+          case 192:
+            return code[index - 192];
+          case 216:
+            return code[index - 216];
+          case 240:
+            return code[index - 240];
+          case 264:
+            return code[index - 264];
+          case 288:
+            return code[index - 288];
+          default:
+            return code[index];
+        }
       }
       index++;
     }
     return code;
   }
-
 
   getDailyWeather(dates: string[], code: any[], dayOffset: number) {
     const currentDate = new Date();

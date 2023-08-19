@@ -12,6 +12,8 @@ export class HourlyComponent implements OnInit {
   data: any;
   form: FormGroup;
   forecast: Record<string, any> = {};
+  specificTemperature: number | undefined;
+  showWeatherDetails: boolean = false;
 
   constructor(
     private weatherClientService: WeatherClientService,
@@ -32,13 +34,8 @@ export class HourlyComponent implements OnInit {
 
         let times: any = this.data['hourly']['time'];
         let temperatures: any = this.data['hourly']['temperature_2m'];
-        let daily: any = this.data['daily']['time'];
-        let code: any = this.data['daily']['weathercode'];
 
         this.forecast['temperature'] = this.weatherClientService.getCurrentData(times, temperatures);
-        // this.forecast['currentWeather'] = this.weatherClientService.getDailyWeather(daily, code, 0);
-        this.forecast['specificTemperature'] = null;
-        this.forecast['specificWeather'] = null;
 
       });
   }
@@ -69,6 +66,9 @@ export class HourlyComponent implements OnInit {
       );
       console.log("Temperature:" + this.forecast['specificTemperature'])
       console.log("Weather code:" + this.forecast['specificWeather'])
+
+      this.specificTemperature = this.forecast['specificTemperature'];
+      this.showWeatherDetails = true;
     }
   }
 }

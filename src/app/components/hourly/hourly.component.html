@@ -1,8 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="container">
+    <img *ngIf="showWeatherDetails" [src]="forecast['specificWeather'] ? getWeatherImage(forecast['specificWeather']) : ''" alt="Weather Icon"/>
+    <div class="title">
+      <ng-container *ngIf="specificTemperature !== undefined; else defaultText">
+        {{ specificTemperature }}°C
+      </ng-container>
+      <ng-template #defaultText>Select a specific date...</ng-template>
+    </div>
   <mat-card class="card">
-    <img [src]="forecast['specificWeather'] ? getWeatherImage(forecast['specificWeather']) : ''" alt="Weather Icon"/>
-    <p>{{forecast['specificTemperature']}}°C</p>
-    <div class="title">Select a specific date...</div>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="showWeather()">
         <mat-form-field>

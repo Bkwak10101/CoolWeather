@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 130vh;
 }
 
 .card {
@@ -17,4 +17,12 @@
   font-weight: bold;
   font-size: 30px;
   margin-bottom: 50px;
+  position: absolute;
+  top: 460px;
+}
+
+img {
+  width:20%;
+  position: absolute;
+  top:70px;
 }
