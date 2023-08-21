@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {WeatherMappingService} from "../../services/weather-mapping.service";
 import {WeatherClientService} from "../../services/weather-client.service";
 
 @Component({
   selector: 'app-hourly',
   templateUrl: './hourly.component.html',
-  styleUrls: ['./hourly.component.css']
+  styleUrls: ['./hourly.component.css'],
 })
 export class HourlyComponent implements OnInit {
   data: any;
@@ -21,8 +21,8 @@ export class HourlyComponent implements OnInit {
     private weatherMappingService: WeatherMappingService
   ) {
     this.form = this.fb.group({
-      date: ['', Validators.required],
       time: ['', Validators.required],
+      date: [null, [Validators.required, this.futureDateValidator()]],
     });
   }
 
@@ -35,6 +35,18 @@ export class HourlyComponent implements OnInit {
         let temperatures: any = this.data['hourly']['temperature_2m'];
         this.forecast['temperature'] = this.weatherClientService.getCurrentData(times, temperatures);
       });
+  }
+
+  futureDateValidator() {
+    return (control: AbstractControl) => {
+      const selectedDate = control.value;
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+
+      return selectedDate && selectedDate < currentDate
+        ? { futureDate: true }
+        : null;
+    };
   }
 
   getWeatherImage(weatherCode: any): string {
