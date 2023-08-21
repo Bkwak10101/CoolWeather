@@ -31,12 +31,9 @@ export class HourlyComponent implements OnInit {
       .getData()
       .subscribe((data) => {
         this.data = data
-
         let times: any = this.data['hourly']['time'];
         let temperatures: any = this.data['hourly']['temperature_2m'];
-
         this.forecast['temperature'] = this.weatherClientService.getCurrentData(times, temperatures);
-
       });
   }
 
@@ -48,25 +45,21 @@ export class HourlyComponent implements OnInit {
     if (this.form.valid) {
       const selectedDate = this.form.value.date;
       const selectedTime = this.form.value.time;
-      let times: any = this.data['hourly']['time'];
+      let hourlyDate: any = this.data['hourly']['time'];
+      let dailyDate: any = this.data['daily']['time'];
       let code: any = this.data['daily']['weathercode'];
-      console.log(selectedDate)
-      console.log(selectedTime)
       let temperatures: any = this.data['hourly']['temperature_2m'];
       this.forecast['specificTemperature'] = this.weatherClientService.getSpecificData(
-        times,
+        hourlyDate,
         temperatures,
         selectedDate,
         selectedTime
       );
       this.forecast['specificWeather'] = this.weatherClientService.getSpecificWeather(
-        times,
+        dailyDate,
         code,
         selectedDate
       );
-      console.log("Temperature:" + this.forecast['specificTemperature'])
-      console.log("Weather code:" + this.forecast['specificWeather'])
-
       this.specificTemperature = this.forecast['specificTemperature'];
       this.showWeatherDetails = true;
     }

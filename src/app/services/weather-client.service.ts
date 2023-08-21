@@ -27,7 +27,6 @@ export class WeatherClientService {
     } else {
       day = new Date().getHours() + 24 * (new Date().getDate() - selectedDay.getDate());
     }
-    console.log("Day value:" + day.toString())
     for (const date in dates) {
       if (date == day.toString()) {
         return data[index];
@@ -77,47 +76,16 @@ export class WeatherClientService {
     return data[index];
   }
 
-  getSpecificWeather(dates: string[], code: any[], selectedDay: any) {
-    const specificDate = selectedDay.getDate();
+  getSpecificWeather(dates: string[], code: number[], selectedDay: Date) {
+    const targetDate = selectedDay.getDate();
 
-    let index = 0;
-    for (const date in dates) {
-      const formattedDate = this.formatDate(dates[date]);
-      if (formattedDate === specificDate) {
-        console.log("CODE", code)
-        console.log("INDEX", index)
-        switch (index) {
-          case 24:
-            return code[index - 24];
-          case 48:
-            return code[index - 48];
-          case 72:
-            return code[index - 72];
-          case 96:
-            return code[index - 96];
-          case 120:
-            return code[index - 120];
-          case 144:
-            return code[index - 144];
-          case 168:
-            return code[index - 168];
-          case 192:
-            return code[index - 192];
-          case 216:
-            return code[index - 216];
-          case 240:
-            return code[index - 240];
-          case 264:
-            return code[index - 264];
-          case 288:
-            return code[index - 288];
-          default:
-            return code[index];
-        }
+    for (let i = 0; i < dates.length; i++) {
+      const formattedDate = this.formatDate(dates[i]);
+      if (formattedDate === targetDate) {
+        return code[i];
       }
-      index++;
     }
-    return code;
+    return null;
   }
 
   getDailyWeather(dates: string[], code: any[], dayOffset: number) {
@@ -133,7 +101,6 @@ export class WeatherClientService {
       }
       index++;
     }
-
     return code;
   }
 
