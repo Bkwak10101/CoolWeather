@@ -3,3 +3,6 @@
   margin: 0;
   padding: 0;
 }
+mat-mdc-tab-body, .mat-mdc-tab-body-content {
+  overflow: hidden!important;
+}

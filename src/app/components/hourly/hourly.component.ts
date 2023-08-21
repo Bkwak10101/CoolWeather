@@ -6,11 +6,14 @@ import {WeatherClientService} from "../../services/weather-client.service";
 @Component({
   selector: 'app-hourly',
   templateUrl: './hourly.component.html',
-  styleUrls: ['./hourly.component.css'],
+  styleUrls: ['./hourly.component.css']
 })
 export class HourlyComponent implements OnInit {
   data: any;
-  form: FormGroup;
+  form: FormGroup = this.fb.group({
+    time: ['', Validators.required],
+    date: [null, [Validators.required, this.futureDateValidator()]],
+  });
   forecast: Record<string, any> = {};
   specificTemperature: number | undefined;
   showWeatherDetails: boolean = false;
@@ -33,7 +36,7 @@ export class HourlyComponent implements OnInit {
         this.data = data
         let times: any = this.data['hourly']['time'];
         let temperatures: any = this.data['hourly']['temperature_2m'];
-        this.forecast['temperature'] = this.weatherClientService.getCurrentData(times, temperatures);
+        this.forecast['temperature'] = this.weatherClientService.getCurrentTemperature(times, temperatures);
       });
   }
 
@@ -44,7 +47,7 @@ export class HourlyComponent implements OnInit {
       currentDate.setHours(0, 0, 0, 0);
 
       return selectedDate && selectedDate < currentDate
-        ? { futureDate: true }
+        ? {futureDate: true}
         : null;
     };
   }
@@ -61,7 +64,7 @@ export class HourlyComponent implements OnInit {
       let dailyDate: any = this.data['daily']['time'];
       let code: any = this.data['daily']['weathercode'];
       let temperatures: any = this.data['hourly']['temperature_2m'];
-      this.forecast['specificTemperature'] = this.weatherClientService.getSpecificData(
+      this.forecast['specificTemperature'] = this.weatherClientService.getSpecificTemperature(
         hourlyDate,
         temperatures,
         selectedDate,

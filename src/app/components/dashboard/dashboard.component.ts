@@ -32,9 +32,9 @@ export class DashboardComponent implements OnInit {
         let daily: any = this.data['daily']['time'];
         let code: any = this.data['daily']['weathercode'];
 
-        this.forecast['temperature'] = this.weatherClientService.getCurrentData(times, temperatures);
-        this.forecast['temperatureTomorrow'] = this.weatherClientService.getTomorrowData(times, temperatures);
-        this.forecast['temperatureAfterTomorrow'] = this.weatherClientService.getDayAfterTomorrowData(times, temperatures);
+        this.forecast['temperature'] = this.weatherClientService.getTemperature(times, temperatures, 0);
+        this.forecast['temperatureTomorrow'] = this.weatherClientService.getTemperature(times, temperatures, 24);
+        this.forecast['temperatureAfterTomorrow'] = this.weatherClientService.getTemperature(times, temperatures, 48);
         this.forecast['currentWeather'] = this.weatherClientService.getDailyWeather(daily, code, 0);
         this.forecast['tomorrowWeather'] = this.weatherClientService.getDailyWeather(daily, code, 1);
         this.forecast['afterTomorrowWeather'] = this.weatherClientService.getDailyWeather(daily, code, 2);

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
 import {WeatherMappingService} from './weather-mapping.service';
 
 @Injectable({
@@ -19,7 +18,7 @@ export class WeatherClientService {
     return this.httpClient.get(this.url);
   }
 
-  getSpecificData(dates: Date[], data: any[], selectedDay: any, selectedTime: number) {
+  getSpecificTemperature(dates: Date[], data: any[], selectedDay: any, selectedTime: number) {
     let index = 0;
     let day;
     if (selectedDay.getDate() > new Date().getDate()) {
@@ -36,7 +35,7 @@ export class WeatherClientService {
     return data[index];
   }
 
-  getCurrentData(dates: Date[], data: any[]) {
+  getCurrentTemperature(dates: Date[], data: any[]) {
     const currentTime = new Date().getHours();
     let index = 0;
 
@@ -49,26 +48,12 @@ export class WeatherClientService {
     return data[index];
   }
 
-  getTomorrowData(dates: Date[], data: any[]) {
-    const dayAfterTommorow = new Date().getHours() + 24;
+  getTemperature(dates: Date[], data: any[], hoursDelay: number) {
+    const currentTime = new Date().getHours() + hoursDelay;
     let index = 0;
 
     for (const date in dates) {
-      if (date == dayAfterTommorow.toString()) {
-
-        return data[index];
-      }
-      index++;
-    }
-    return data[index];
-  }
-
-  getDayAfterTomorrowData(dates: Date[], data: any[]) {
-    const tomorrowTime = new Date().getHours() + 48;
-    let index = 0;
-
-    for (const date in dates) {
-      if (date == tomorrowTime.toString()) {
+      if (date == currentTime.toString()) {
         return data[index];
       }
       index++;
