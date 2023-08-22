@@ -16,3 +16,49 @@
     <p>{{forecast['temperatureAfterTomorrow']}}°C</p>
   </mat-tab>
 </mat-tab-group>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Today
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="weather-panel">
+        <h2>Today's weather in Cracow</h2>
+        <img [src]="forecast['currentWeather'] ? getWeatherImage(forecast['currentWeather']) : ''" alt="Weather Icon"/>
+        <p>{{forecast['temperature']}}°C</p>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Tomorrow
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="weather-panel">
+        <h2>Tomorrow's weather in Cracow</h2>
+        <img [src]="forecast['tomorrowWeather'] ? getWeatherImage(forecast['tomorrowWeather']) : ''"
+             alt="Weather Icon"/>
+        <p>{{forecast['temperatureTomorrow']}}°C</p>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        The day after tomorrow
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="weather-panel">
+        <h2>The day after tomorrow's weather in Cracow</h2>
+        <img [src]="forecast['afterTomorrowWeather'] ? getWeatherImage(forecast['afterTomorrowWeather']) : ''"
+             alt="Weather Icon"/>
+        <p>{{forecast['temperatureAfterTomorrow']}}°C</p>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>
